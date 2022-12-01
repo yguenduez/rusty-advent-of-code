@@ -66,12 +66,12 @@ mod tests {
     #[test]
     fn print_solution_for_first_puzzle() {
         let solution: u64 = Solution::solve_first_puzzle("inputs/day_1/input.txt");
-        print!("{}", solution);
+        assert_eq!(67622, solution);
     }
 
     #[test]
     fn print_solution_for_second_puzzle() {
         let solution: u64 = Solution::solve_second_puzzle("inputs/day_1/input.txt");
-        print!("{}", solution);
+        assert_eq!(201491, solution);
     }
 }
