@@ -1,6 +1,6 @@
 # Advent of Code 2022
 
-All problems are in Rust
+All problems are solved in Rust.
 
 ## Puzzles
 
