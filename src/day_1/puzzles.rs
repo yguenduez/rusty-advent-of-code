@@ -61,7 +61,7 @@ impl Solution {
 
 #[cfg(test)]
 mod tests {
-    use crate::day_1::puzzle_1::Solution;
+    use crate::day_1::puzzles::Solution;
 
     #[test]
     fn print_solution_for_first_puzzle() {

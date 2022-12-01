@@ -1,1 +1,1 @@
-mod puzzle_1;
+mod puzzles;
