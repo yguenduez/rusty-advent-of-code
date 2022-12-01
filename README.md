@@ -8,6 +8,10 @@ The puzzles are given here: [Advent of Code](https://adventofcode.com/)
 
 ### Puzzles and their Solutions (SPOILER ALERT!)
 
+Below the puzzles and their answers are listed.   
+**Warning**: Do not read further,
+if you do not want to get spoilers.
+
 #### Day 1
 
 ##### Part 1
