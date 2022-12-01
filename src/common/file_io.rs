@@ -2,7 +2,7 @@ use std::fs::File;
 use std::io;
 use std::io::BufRead;
 
-pub fn read_linear_file_to_vec(filepath: &str) -> Vec<Option<u64>> {
+pub fn convert_numbers_listfile_to_vec(filepath: &str) -> Vec<Option<u64>> {
     let file = File::open(filepath).expect("Could not open file!");
 
     let lines = io::BufReader::new(file).lines();
@@ -26,10 +26,10 @@ pub fn read_linear_file_to_vec(filepath: &str) -> Vec<Option<u64>> {
 
 #[cfg(test)]
 mod tests {
-    use crate::common::file_io::read_linear_file_to_vec;
+    use crate::common::file_io::convert_numbers_listfile_to_vec;
 
     #[test]
-    fn reads_linear_file_to_vec() {
+    fn converts_list_with_numbers_to_vec() {
         let expected_vec: Vec<Option<u64>> = vec![
             Some(1000),
             Some(2000),
@@ -48,7 +48,7 @@ mod tests {
         ];
         assert_eq!(
             expected_vec,
-            read_linear_file_to_vec("test_inputs/linear_file_with_new_line.txt")
+            convert_numbers_listfile_to_vec("test_inputs/linear_file_with_new_line.txt")
         );
     }
 }
