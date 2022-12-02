@@ -1,5 +1,6 @@
 use crate::day_2::points::Points;
 use crate::day_2::shape_type::{GetType, ShapeType};
+use crate::day_2::RockPaperScissorTraits;
 
 #[derive(PartialEq, Debug)]
 pub(crate) enum MatchOutCome {
@@ -30,11 +31,10 @@ pub(crate) trait MatchVsScissors {
     fn vs_scissors(&self) -> MatchOutCome;
 }
 
-pub(crate) fn outcome_match_in_points<T, U>(first_shape: &T, second_shape: &U) -> u64
-where
-    T: MatchVsPaper + MatchVsRock + MatchVsScissors + Points + GetType,
-    U: MatchVsPaper + MatchVsRock + MatchVsScissors + Points + GetType,
-{
+pub(crate) fn outcome_match_in_points(
+    first_shape: Box<dyn RockPaperScissorTraits>,
+    second_shape: Box<dyn RockPaperScissorTraits>,
+) -> u64 {
     let points_for_shape = first_shape.points();
     let match_outcome = match second_shape.get_type() {
         ShapeType::RockType => first_shape.vs_rock(),

@@ -131,4 +131,4 @@ score of 15 (8 + 1 + 6).
 
 What would your total score be if everything goes exactly according to your strategy guide?
 
-Answer:
+Answer: 10718

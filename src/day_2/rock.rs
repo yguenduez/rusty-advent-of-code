@@ -1,6 +1,7 @@
 use crate::day_2::match_outcome::{MatchOutCome, MatchVsPaper, MatchVsRock, MatchVsScissors};
 use crate::day_2::points::Points;
 use crate::day_2::shape_type::{GetType, ShapeType};
+use crate::day_2::RockPaperScissorTraits;
 
 pub(crate) struct Rock;
 
@@ -33,6 +34,8 @@ impl MatchVsScissors for Rock {
         MatchOutCome::Win
     }
 }
+
+impl RockPaperScissorTraits for Rock {}
 
 #[cfg(test)]
 mod tests {
