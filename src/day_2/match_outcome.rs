@@ -2,7 +2,7 @@ use crate::day_2::points::Points;
 use crate::day_2::shape_type::{GetType, ShapeType};
 use crate::day_2::RockPaperScissorTraits;
 
-#[derive(PartialEq, Debug)]
+#[derive(PartialEq, Debug, Clone)]
 pub(crate) enum MatchOutCome {
     Win,
     Draw,

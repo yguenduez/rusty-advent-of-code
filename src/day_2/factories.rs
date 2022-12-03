@@ -32,7 +32,10 @@ impl MatchOutComeFactory {
 }
 
 pub(crate) trait ShapeFromOutComeFactory {
-    fn other_shape_from_outcome(&self, expected_outcome: MatchOutCome) -> Box<dyn RockPaperScissorTraits>;
+    fn needed_shape_in_order_to(
+        &self,
+        expected_outcome: MatchOutCome,
+    ) -> Box<dyn RockPaperScissorTraits>;
 }
 
 #[cfg(test)]

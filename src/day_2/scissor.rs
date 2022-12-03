@@ -39,14 +39,14 @@ impl MatchVsScissors for Scissors {
 }
 
 impl ShapeFromOutComeFactory for Scissors {
-    fn other_shape_from_outcome(
+    fn needed_shape_in_order_to(
         &self,
         expected_outcome: MatchOutCome,
     ) -> Box<dyn RockPaperScissorTraits> {
         match expected_outcome {
-            MatchOutCome::Win => Box::new(Paper),
+            MatchOutCome::Win => Box::new(Rock),
             MatchOutCome::Draw => Box::new(Scissors),
-            MatchOutCome::Lose => Box::new(Rock),
+            MatchOutCome::Lose => Box::new(Paper),
         }
     }
 }

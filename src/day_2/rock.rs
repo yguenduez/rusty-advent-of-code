@@ -2,9 +2,9 @@ use crate::day_2::factories::ShapeFromOutComeFactory;
 use crate::day_2::match_outcome::{MatchOutCome, MatchVsPaper, MatchVsRock, MatchVsScissors};
 use crate::day_2::paper::Paper;
 use crate::day_2::points::Points;
+use crate::day_2::scissor::Scissors;
 use crate::day_2::shape_type::{GetType, ShapeType};
 use crate::day_2::RockPaperScissorTraits;
-use crate::day_2::scissor::Scissors;
 
 pub(crate) struct Rock;
 
@@ -39,14 +39,14 @@ impl MatchVsScissors for Rock {
 }
 
 impl ShapeFromOutComeFactory for Rock {
-    fn other_shape_from_outcome(
+    fn needed_shape_in_order_to(
         &self,
         expected_outcome: MatchOutCome,
     ) -> Box<dyn RockPaperScissorTraits> {
         match expected_outcome {
-            MatchOutCome::Win => Box::new(Scissors),
+            MatchOutCome::Win => Box::new(Paper),
             MatchOutCome::Draw => Box::new(Rock),
-            MatchOutCome::Lose => Box::new(Paper),
+            MatchOutCome::Lose => Box::new(Scissors),
         }
     }
 }
