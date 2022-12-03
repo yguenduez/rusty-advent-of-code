@@ -23,6 +23,28 @@ pub fn convert_char_sequence_to_tuple_list(filepath: &str) -> Vec<(String, Strin
     out
 }
 
+pub fn convert_list_of_rucksack_inputs_to_vec_of_compartments(
+    filepath: &str,
+) -> Vec<(String, String)> {
+    let file = File::open(filepath).expect("Could not open file!");
+    let lines = io::BufReader::new(file).lines();
+    let mut out = Vec::new();
+
+    for line in lines {
+        let Ok(line) = line else {
+            panic!("Could not read line!");
+        };
+
+        let string_len = line.len();
+        let first_half = line[..string_len / 2].to_owned();
+        let second_half = line[string_len / 2..].to_owned();
+
+        out.push((first_half, second_half));
+    }
+
+    out
+}
+
 pub fn convert_numbers_listfile_to_vec(filepath: &str) -> Vec<Option<u64>> {
     let file = File::open(filepath).expect("Could not open file!");
 
@@ -48,7 +70,8 @@ pub fn convert_numbers_listfile_to_vec(filepath: &str) -> Vec<Option<u64>> {
 #[cfg(test)]
 mod tests {
     use crate::common::file_io::{
-        convert_char_sequence_to_tuple_list, convert_numbers_listfile_to_vec,
+        convert_char_sequence_to_tuple_list,
+        convert_list_of_rucksack_inputs_to_vec_of_compartments, convert_numbers_listfile_to_vec,
     };
 
     #[test]
@@ -61,6 +84,24 @@ mod tests {
         assert_eq!(
             expected_vec,
             convert_char_sequence_to_tuple_list("test_inputs/rock_paper_scissors.txt")
+        );
+    }
+
+    #[test]
+    fn converts_rucksack_input_to_compartment_vec() {
+        let expected_vec: Vec<(String, String)> = vec![
+            (String::from("vJrwpWtwJgWr"), String::from("hcsFMMfFFhFp")),
+            (
+                String::from("jqHRNqRjqzjGDLGL"),
+                String::from("rsFMfFZSrLrFZsSL"),
+            ),
+            (String::from("PmmdzqPrV"), String::from("vPwwTWBwg")),
+        ];
+        assert_eq!(
+            expected_vec,
+            convert_list_of_rucksack_inputs_to_vec_of_compartments(
+                "test_inputs/rucksack_input.txt"
+            )
         );
     }
 
