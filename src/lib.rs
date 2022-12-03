@@ -1,3 +1,5 @@
+extern crate core;
+
 mod common;
 mod day_1;
 mod day_2;
