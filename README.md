@@ -54,8 +54,6 @@ In case the Elves get hungry and need extra snacks, they need to know which Elf 
 
 Find the Elf carrying the most Calories. How many total Calories is that Elf carrying?
 
-Answer: 67622
-
 ##### Part 2
 
 By the time you calculate the answer to the Elves' question,
@@ -74,9 +72,6 @@ carried by these three elves is 45000.
 
 Find the top three Elves carrying the most Calories. How many 
 Calories are those Elves carrying in total?
-
-Answer: 201491
-
 
 #### Day 2
 
@@ -131,8 +126,6 @@ score of 15 (8 + 1 + 6).
 
 What would your total score be if everything goes exactly according to your strategy guide?
 
-Answer: 10718
-
 
 ##### Part 2
 
@@ -146,5 +139,3 @@ In the third round, you will defeat your opponent's Scissors with Rock for a sco
 Now that you're correctly decrypting the ultra top secret strategy guide, you would get a total score of 12.
 
 Following the Elf's instructions for the second column, what would your total score be if everything goes exactly according to your strategy guide?
-
-Answer: 
