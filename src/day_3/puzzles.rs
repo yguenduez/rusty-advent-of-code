@@ -12,7 +12,7 @@ impl Solution {
 
 #[cfg(test)]
 mod tests {
-    use crate::day_2::puzzles::Solution;
+    use crate::day_3::puzzles::Solution;
 
     #[test]
     fn print_solution_for_first_puzzle() {
