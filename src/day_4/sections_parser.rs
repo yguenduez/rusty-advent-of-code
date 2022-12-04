@@ -1,10 +1,9 @@
 use crate::day_4::section::Section;
 
 pub(crate) struct SectionsParser;
-
 impl SectionsParser {
-    fn from_str(input: &str) -> (Section, Section) {
-        let sections: Vec<&str> = input.split(",").collect();
+    pub fn from_str(input: &str) -> (Section, Section) {
+        let sections: Vec<&str> = input.split(',').collect();
         if sections.len() != 2 {
             panic!("Could not split into two sections");
         }
@@ -16,7 +15,7 @@ impl SectionsParser {
     }
 
     fn section_from_str(input: &str) -> Section {
-        let start_end: Vec<&str> = input.split("-").collect();
+        let start_end: Vec<&str> = input.split('-').collect();
         if start_end.len() != 2 {
             panic!("Could not parse into section")
         }

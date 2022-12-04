@@ -23,6 +23,14 @@ pub fn convert_char_sequence_to_tuple_list(filepath: &str) -> Vec<(String, Strin
     out
 }
 
+pub fn convert_file_to_lines_of_string(filepath: &str) -> Vec<String> {
+    let file = File::open(filepath).expect("Could not open file!");
+    let lines = io::BufReader::new(file).lines();
+
+    let lines: Vec<String> = lines.collect::<Result<_, _>>().unwrap();
+    lines
+}
+
 pub fn convert_list_of_rucksack_inputs_to_vec_of_compartments(
     filepath: &str,
 ) -> Vec<(String, String)> {
@@ -91,7 +99,8 @@ pub fn convert_numbers_listfile_to_vec(filepath: &str) -> Vec<Option<u64>> {
 #[cfg(test)]
 mod tests {
     use crate::common::file_io::{
-        convert_char_sequence_to_tuple_list, convert_list_of_rucksack_inputs_groups_of_three,
+        convert_char_sequence_to_tuple_list, convert_file_to_lines_of_string,
+        convert_list_of_rucksack_inputs_groups_of_three,
         convert_list_of_rucksack_inputs_to_vec_of_compartments, convert_numbers_listfile_to_vec,
     };
 
@@ -143,6 +152,22 @@ mod tests {
         assert_eq!(
             expected_vec,
             convert_list_of_rucksack_inputs_groups_of_three("test_inputs/rucksack_input_2.txt")
+        );
+    }
+
+    #[test]
+    fn converts_file_to_list_of_lines() {
+        let expected_vec: Vec<String> = vec![
+            String::from("vJrwpWtwJgWrhcsFMMfFFhFp"),
+            String::from("jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL"),
+            String::from("PmmdzqPrVvPwwTWBwg"),
+            String::from("vJrwpWtwJgWrhcsFMMfFFhFp"),
+            String::from("jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL"),
+            String::from("PmmdzqPrVvPwwTWBwg"),
+        ];
+        assert_eq!(
+            expected_vec,
+            convert_file_to_lines_of_string("test_inputs/rucksack_input_2.txt")
         );
     }
 
