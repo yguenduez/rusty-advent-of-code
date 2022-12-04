@@ -44,13 +44,13 @@ mod tests {
     use crate::day_3::puzzles::Solution;
 
     #[test]
-    fn print_solution_for_first_puzzle() {
+    fn solution_for_first_puzzle() {
         let solution: u64 = Solution::solve_first_puzzle("inputs/day_3/input.txt");
         assert_eq!(7903, solution);
     }
 
     #[test]
-    fn print_solution_for_second_puzzle() {
+    fn solution_for_second_puzzle() {
         let solution: u64 = Solution::solve_second_puzzle("inputs/day_3/input.txt");
         assert_eq!(2548, solution);
     }
