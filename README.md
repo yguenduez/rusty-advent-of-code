@@ -2,11 +2,31 @@
 
 All problems are solved in Rust.
 
+## Prerequisites
+
+Having [Rust](https://www.rust-lang.org/tools/install) installed.
+
+## Execution
+
+    cargo test
+
 ## Puzzles
 
 The puzzles are given here: [Advent of Code](https://adventofcode.com/)
 
-Below the puzzles are listed.   
+The code solutions for the puzzles are given in the respective day_X directories
+within the **puzzles.rs** module, where X denotes the day.
+The solutions for the first puzzle is given in the
+
+    solution_for_first_puzzle(){...}
+
+test function. The second puzzle is given in the
+
+    solution_for_second_puzzle(){...}
+
+test function.
+
+Below the text of the puzzles are given for each day.
 
 ### Day 1
 
