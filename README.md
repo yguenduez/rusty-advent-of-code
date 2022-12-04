@@ -6,15 +6,11 @@ All problems are solved in Rust.
 
 The puzzles are given here: [Advent of Code](https://adventofcode.com/)
 
-### Puzzles and their Solutions (SPOILER ALERT!)
+Below the puzzles are listed.   
 
-Below the puzzles and their answers are listed.   
-**Warning**: Do not read further,
-if you do not want to get spoilers.
+### Day 1
 
-#### Day 1
-
-##### Part 1
+#### Part 1
 
 Santa's reindeer typically eat regular reindeer food, but they need a lot of magical energy to deliver presents on Christmas. For that, their favorite snack is a special type of star fruit that only grows deep in the jungle. The Elves have brought you on their annual expedition to the grove where the fruit grows.
 
@@ -54,7 +50,7 @@ In case the Elves get hungry and need extra snacks, they need to know which Elf 
 
 Find the Elf carrying the most Calories. How many total Calories is that Elf carrying?
 
-##### Part 2
+#### Part 2
 
 By the time you calculate the answer to the Elves' question,
 they've already realized that the Elf carrying the most Calories of 
@@ -73,9 +69,9 @@ carried by these three elves is 45000.
 Find the top three Elves carrying the most Calories. How many 
 Calories are those Elves carrying in total?
 
-#### Day 2
+### Day 2
 
-##### Part 1
+#### Part 1
 
 The Elves begin to set up camp on the beach. 
 To decide whose tent gets to be closest to the snack storage, a giant Rock Paper Scissors tournament is already in progress.
@@ -127,7 +123,7 @@ score of 15 (8 + 1 + 6).
 What would your total score be if everything goes exactly according to your strategy guide?
 
 
-##### Part 2
+#### Part 2
 
 The Elf finishes helping with the tent and sneaks back over to you. "Anyway, the second column says how the round needs to end: X means you need to lose, Y means you need to end the round in a draw, and Z means you need to win. Good luck!"
 
@@ -140,9 +136,9 @@ Now that you're correctly decrypting the ultra top secret strategy guide, you wo
 
 Following the Elf's instructions for the second column, what would your total score be if everything goes exactly according to your strategy guide?
 
-#### Day 3
+### Day 3
 
-##### Part 1
+#### Part 1
 
 One Elf has the important job of loading all of the rucksacks with supplies for the jungle journey. Unfortunately, that Elf didn't quite follow the packing instructions, and so a few items now need to be rearranged.
 
@@ -183,7 +179,7 @@ In the above example, the priority of the item type that appears in both compart
 
 Find the item type that appears in both compartments of each rucksack. What is the sum of the priorities of those item types?
 
-##### Part 2
+#### Part 2
 
 As you finish identifying the misplaced items, the Elves come to you with another issue.
 
@@ -212,9 +208,9 @@ Priorities for these items must still be found to organize the sticker attachmen
 Find the item type that corresponds to the badges of each three-Elf group. What is the sum of the priorities of those item types?
 
 
-#### Day 4
+### Day 4
 
-##### Part 1
+#### Part 1
 
 Space needs to be cleared before the last supplies can be unloaded from the ships, and so several Elves have been assigned the job of cleaning up sections of the camp. Every section has a unique ID number, and each Elf is assigned a range of section IDs.
 
@@ -259,7 +255,7 @@ Some of the pairs have noticed that one of their assignments fully contains the 
 
 In how many assignment pairs does one range fully contain the other?
 
-##### Part 2
+#### Part 2
 
 It seems like there is still quite a bit of duplicate work planned. Instead, the Elves would like to know the number of pairs that overlap at all.
 
