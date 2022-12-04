@@ -35,12 +35,9 @@ mod tests {
     #[test]
     fn section_from_str() {
         let string = "1-3";
-        let expected_first_section = Section::new(1, 3);
+        let expected_section = Section::new(1, 3);
 
-        assert_eq!(
-            expected_first_section,
-            SectionsParser::section_from_str(string)
-        );
+        assert_eq!(expected_section, SectionsParser::section_from_str(string));
     }
 
     #[test]
