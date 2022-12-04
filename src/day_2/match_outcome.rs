@@ -1,5 +1,6 @@
 use crate::day_2::points::Points;
-use crate::day_2::shape_type::{GetType, ShapeType};
+use crate::day_2::shape_type::GetType;
+use crate::day_2::shape_type::ShapeType;
 use crate::day_2::RockPaperScissorTraits;
 
 #[derive(PartialEq, Debug, Clone)]

@@ -27,7 +27,21 @@ impl Solution {
     }
 
     fn solve_second_puzzle(input_file: &str) -> u64 {
-        todo!()
+        let lines = convert_file_to_lines_of_string(&input_file);
+        let section_pairs: Vec<(Section, Section)> = lines
+            .iter()
+            .map(|line| SectionsParser::from_str(line))
+            .collect();
+
+        let overlap_count = section_pairs.iter().fold(0, |acc, pair| {
+            if pair.0.does_overlap_with(&pair.1) {
+                acc + 1u64
+            } else {
+                acc
+            }
+        });
+
+        overlap_count
     }
 }
 
@@ -44,6 +58,6 @@ mod tests {
     #[test]
     fn print_solution_for_second_puzzle() {
         let solution: u64 = Solution::solve_second_puzzle("inputs/day_4/input.txt");
-        assert_eq!(0, solution);
+        assert_eq!(845, solution);
     }
 }

@@ -1,11 +1,7 @@
 use crate::common::file_io;
 use crate::day_2::factories::{MatchOutComeFactory, ShapeFactory};
 use crate::day_2::match_outcome::outcome_match_in_points;
-use crate::day_2::paper::Paper;
 use crate::day_2::points::Points;
-use crate::day_2::rock::Rock;
-use crate::day_2::scissor::Scissors;
-use crate::day_2::shape_type::ShapeType;
 
 struct Solution;
 

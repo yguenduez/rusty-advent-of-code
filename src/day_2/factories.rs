@@ -4,7 +4,6 @@ use crate::day_2::match_outcome::MatchOutCome;
 use crate::day_2::paper::Paper;
 use crate::day_2::rock::Rock;
 use crate::day_2::scissor::Scissors;
-use crate::day_2::shape_type::ShapeType;
 use crate::day_2::RockPaperScissorTraits;
 
 impl ShapeFactory {
