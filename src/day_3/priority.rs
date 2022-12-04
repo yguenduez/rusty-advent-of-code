@@ -5,7 +5,7 @@ static ALPHABET: &[&str] = &[
     "t", "u", "v", "w", "x", "y", "z",
 ];
 
-struct PriorityMapper {
+pub(crate) struct PriorityMapper {
     inner: HashMap<String, u64>,
 }
 
