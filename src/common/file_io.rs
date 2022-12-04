@@ -45,6 +45,27 @@ pub fn convert_list_of_rucksack_inputs_to_vec_of_compartments(
     out
 }
 
+pub fn convert_list_of_rucksack_inputs_groups_of_three(filepath: &str) -> Vec<Vec<String>> {
+    let file = File::open(filepath).expect("Could not open file!");
+    let lines = io::BufReader::new(file).lines();
+    let mut list_of_groups = Vec::new();
+    let mut grp = Vec::new();
+    for (line_cnt, line) in lines.enumerate() {
+        let Ok(line) = line else {
+            panic!("Could not read line!");
+        };
+
+        grp.push(line);
+
+        if (line_cnt + 1) % 3 == 0 {
+            list_of_groups.push(grp);
+            grp = Vec::new()
+        }
+    }
+
+    list_of_groups
+}
+
 pub fn convert_numbers_listfile_to_vec(filepath: &str) -> Vec<Option<u64>> {
     let file = File::open(filepath).expect("Could not open file!");
 
@@ -70,7 +91,7 @@ pub fn convert_numbers_listfile_to_vec(filepath: &str) -> Vec<Option<u64>> {
 #[cfg(test)]
 mod tests {
     use crate::common::file_io::{
-        convert_char_sequence_to_tuple_list,
+        convert_char_sequence_to_tuple_list, convert_list_of_rucksack_inputs_groups_of_three,
         convert_list_of_rucksack_inputs_to_vec_of_compartments, convert_numbers_listfile_to_vec,
     };
 
@@ -102,6 +123,26 @@ mod tests {
             convert_list_of_rucksack_inputs_to_vec_of_compartments(
                 "test_inputs/rucksack_input.txt"
             )
+        );
+    }
+
+    #[test]
+    fn converts_rucksack_input_to_list_of_groups_of_three() {
+        let expected_vec: Vec<Vec<String>> = vec![
+            vec![
+                String::from("vJrwpWtwJgWrhcsFMMfFFhFp"),
+                String::from("jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL"),
+                String::from("PmmdzqPrVvPwwTWBwg"),
+            ],
+            vec![
+                String::from("vJrwpWtwJgWrhcsFMMfFFhFp"),
+                String::from("jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL"),
+                String::from("PmmdzqPrVvPwwTWBwg"),
+            ],
+        ];
+        assert_eq!(
+            expected_vec,
+            convert_list_of_rucksack_inputs_groups_of_three("test_inputs/rucksack_input_2.txt")
         );
     }
 
