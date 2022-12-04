@@ -23,7 +23,19 @@ impl Solution {
     }
 
     fn solve_second_puzzle(input_file: &str) -> u64 {
-        todo!()
+        let list_of_groups = file_io::convert_list_of_rucksack_inputs_groups_of_three(input_file);
+        let mut sum = 0;
+        let priorities = PriorityMapper::new();
+
+        for group in list_of_groups {
+            let set_of_common_items = CommonItemFinder::find_items(&group[0], &group[1]);
+            let item = CommonItemFinder::find_common_item(&set_of_common_items, &group[2]);
+
+            let priority = priorities.get_priority(&item);
+            sum += priority;
+        }
+
+        sum
     }
 }
 
@@ -40,6 +52,6 @@ mod tests {
     #[test]
     fn print_solution_for_second_puzzle() {
         let solution: u64 = Solution::solve_second_puzzle("inputs/day_3/input.txt");
-        assert_eq!(0, solution);
+        assert_eq!(2548, solution);
     }
 }
