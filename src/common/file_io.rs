@@ -74,6 +74,10 @@ pub fn convert_list_of_rucksack_inputs_groups_of_three(filepath: &str) -> Vec<Ve
     list_of_groups
 }
 
+pub fn convert_input_file_stacks_to_list_of_stacks(filepath: &str) -> Vec<Vec<char>>{
+    todo!()
+}
+
 pub fn convert_numbers_listfile_to_vec(filepath: &str) -> Vec<Option<u64>> {
     let file = File::open(filepath).expect("Could not open file!");
 
@@ -98,11 +102,7 @@ pub fn convert_numbers_listfile_to_vec(filepath: &str) -> Vec<Option<u64>> {
 
 #[cfg(test)]
 mod tests {
-    use crate::common::file_io::{
-        convert_char_sequence_to_tuple_list, convert_file_to_lines_of_string,
-        convert_list_of_rucksack_inputs_groups_of_three,
-        convert_list_of_rucksack_inputs_to_vec_of_compartments, convert_numbers_listfile_to_vec,
-    };
+    use crate::common::file_io::{convert_char_sequence_to_tuple_list, convert_file_to_lines_of_string, convert_input_file_stacks_to_list_of_stacks, convert_list_of_rucksack_inputs_groups_of_three, convert_list_of_rucksack_inputs_to_vec_of_compartments, convert_numbers_listfile_to_vec};
 
     #[test]
     fn converts_char_sequence_to_tuples_vec() {
@@ -115,6 +115,17 @@ mod tests {
             expected_vec,
             convert_char_sequence_to_tuple_list("test_inputs/rock_paper_scissors.txt")
         );
+    }
+
+    #[test]
+    pub fn convert_file_stacks_to_list_of_stacks() {
+        let expected_stacks: Vec<Vec<char>> = vec![
+            vec!['Z', 'N'],
+            vec!['M', 'C', 'D'],
+            vec!['P'],
+        ];
+
+        assert_eq!(expected_stacks, convert_input_file_stacks_to_list_of_stacks("test_inputs/init_stack.txt"));
     }
 
     #[test]
