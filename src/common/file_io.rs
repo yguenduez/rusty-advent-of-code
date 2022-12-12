@@ -74,6 +74,41 @@ pub fn convert_list_of_rucksack_inputs_groups_of_three(filepath: &str) -> Vec<Ve
     list_of_groups
 }
 
+pub fn convert_input_file_stacks_to_list_of_stacks(lines: &Vec<String>) -> Vec<Vec<char>> {
+    let mut out: Vec<Vec<char>> = Vec::new();
+    for line in lines {
+        const ITEM_BEGIN: char = '[';
+        let begin_indices: Vec<usize> = line
+            .chars()
+            .enumerate()
+            .filter(|(_, c)| c.eq(&ITEM_BEGIN))
+            .map(|(i, _)| i)
+            .collect::<Vec<_>>();
+        if begin_indices.is_empty() {
+            // we reached the last line
+            break;
+        }
+
+        for index in begin_indices {
+            const SEPERATION_SIZE: usize = 4usize;
+            let stack_index = index / SEPERATION_SIZE;
+            let new_char = line.chars().nth(index + 1).unwrap();
+            if stack_index >= out.len() {
+                out.resize(stack_index + 1, vec![]);
+            }
+
+            out[stack_index].push(new_char);
+        }
+    }
+
+    // revert stacks
+    for stack in &mut out {
+        stack.reverse();
+    }
+
+    out
+}
+
 pub fn convert_numbers_listfile_to_vec(filepath: &str) -> Vec<Option<u64>> {
     let file = File::open(filepath).expect("Could not open file!");
 
@@ -100,6 +135,7 @@ pub fn convert_numbers_listfile_to_vec(filepath: &str) -> Vec<Option<u64>> {
 mod tests {
     use crate::common::file_io::{
         convert_char_sequence_to_tuple_list, convert_file_to_lines_of_string,
+        convert_input_file_stacks_to_list_of_stacks,
         convert_list_of_rucksack_inputs_groups_of_three,
         convert_list_of_rucksack_inputs_to_vec_of_compartments, convert_numbers_listfile_to_vec,
     };
@@ -116,6 +152,20 @@ mod tests {
             convert_char_sequence_to_tuple_list("test_inputs/rock_paper_scissors.txt")
         );
     }
+
+    #[test]
+    pub fn convert_file_stacks_to_list_of_stacks() {
+        let expected_stacks: Vec<Vec<char>> = vec![vec!['Z', 'N'], vec!['M', 'C', 'D'], vec!['P']];
+        let lines = convert_file_to_lines_of_string("test_inputs/init_stack.txt");
+
+        assert_eq!(
+            expected_stacks,
+            convert_input_file_stacks_to_list_of_stacks(&lines)
+        );
+    }
+
+    #[test]
+    pub fn convert_file_move_operations_to_move_operation_tuple() {}
 
     #[test]
     fn converts_rucksack_input_to_compartment_vec() {
