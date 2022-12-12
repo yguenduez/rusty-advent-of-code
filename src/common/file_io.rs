@@ -75,7 +75,37 @@ pub fn convert_list_of_rucksack_inputs_groups_of_three(filepath: &str) -> Vec<Ve
 }
 
 pub fn convert_input_file_stacks_to_list_of_stacks(filepath: &str) -> Vec<Vec<char>>{
-    todo!()
+    let file = File::open(filepath).expect("Could not open file!");
+    let lines = io::BufReader::new(file).lines();
+
+    let mut out:  Vec<Vec<char>> = Vec::new();
+    for line in lines{
+        let line_content = line.expect("Could not read file!");
+        const ITEM_BEGIN: char = '[';
+        let begin_indices: Vec<usize> = line_content.chars().enumerate().filter(|(_, c)| c.eq(&ITEM_BEGIN)).map(|(i, _)| i).collect::<Vec<_>>();
+        if begin_indices.is_empty(){
+            // we reached the last line
+            break;
+        }
+
+        for index in begin_indices{
+            const SEPERATION_SIZE: usize = 4usize;
+            let stack_index = index/SEPERATION_SIZE;
+            let new_char = line_content.chars().nth(index+1).unwrap();
+            if stack_index >= out.len(){
+                out.resize(stack_index + 1, vec![]);
+            }
+
+            out[stack_index].push(new_char);
+        }
+    }
+
+    // revert stacks
+    for stack in &mut out {
+        stack.reverse();
+    }
+
+    out
 }
 
 pub fn convert_numbers_listfile_to_vec(filepath: &str) -> Vec<Option<u64>> {
