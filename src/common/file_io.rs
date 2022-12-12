@@ -74,15 +74,11 @@ pub fn convert_list_of_rucksack_inputs_groups_of_three(filepath: &str) -> Vec<Ve
     list_of_groups
 }
 
-pub fn convert_input_file_stacks_to_list_of_stacks(filepath: &str) -> Vec<Vec<char>> {
-    let file = File::open(filepath).expect("Could not open file!");
-    let lines = io::BufReader::new(file).lines();
-
+pub fn convert_input_file_stacks_to_list_of_stacks(lines: &Vec<String>) -> Vec<Vec<char>> {
     let mut out: Vec<Vec<char>> = Vec::new();
     for line in lines {
-        let line_content = line.expect("Could not read file!");
         const ITEM_BEGIN: char = '[';
-        let begin_indices: Vec<usize> = line_content
+        let begin_indices: Vec<usize> = line
             .chars()
             .enumerate()
             .filter(|(_, c)| c.eq(&ITEM_BEGIN))
@@ -96,7 +92,7 @@ pub fn convert_input_file_stacks_to_list_of_stacks(filepath: &str) -> Vec<Vec<ch
         for index in begin_indices {
             const SEPERATION_SIZE: usize = 4usize;
             let stack_index = index / SEPERATION_SIZE;
-            let new_char = line_content.chars().nth(index + 1).unwrap();
+            let new_char = line.chars().nth(index + 1).unwrap();
             if stack_index >= out.len() {
                 out.resize(stack_index + 1, vec![]);
             }
@@ -160,10 +156,11 @@ mod tests {
     #[test]
     pub fn convert_file_stacks_to_list_of_stacks() {
         let expected_stacks: Vec<Vec<char>> = vec![vec!['Z', 'N'], vec!['M', 'C', 'D'], vec!['P']];
+        let lines = convert_file_to_lines_of_string("test_inputs/init_stack.txt");
 
         assert_eq!(
             expected_stacks,
-            convert_input_file_stacks_to_list_of_stacks("test_inputs/init_stack.txt")
+            convert_input_file_stacks_to_list_of_stacks(&lines)
         );
     }
 
