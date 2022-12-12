@@ -8,6 +8,15 @@ pub(crate) struct MoveOperation {
     num_of_items: u64,
 }
 
+impl MoveOperation {
+    pub(crate) fn apply_to(&self, stacks: &mut Vec<Vec<char>>) {
+        for _ in 0..self.num_of_items {
+            let char_to_swap = stacks[self.from_stack_index].pop().unwrap();
+            stacks[self.to_stack_index].push(char_to_swap);
+        }
+    }
+}
+
 pub(crate) struct MoveOperationFactory {
     move_operation: MoveOperation,
 }
@@ -94,5 +103,24 @@ mod tests {
 
         let result = MoveOperation::from_str("move 6 from 3 to 5").unwrap();
         assert_eq!(expected_move_operation, result);
+    }
+
+    #[test]
+    fn applies_move_operation_correctly_to_stacks() {
+        // Given
+        let mut input_stacks: Vec<Vec<char>> = vec![vec!['Z', 'N'], vec!['M', 'C', 'D'], vec!['P']];
+        let expected_mutated_stacks: Vec<Vec<char>> =
+            vec![vec!['Z', 'N'], vec![], vec!['P', 'D', 'C', 'M']];
+        let move_operation = MoveOperation {
+            from_stack_index: 1,
+            to_stack_index: 2,
+            num_of_items: 3,
+        };
+
+        // When
+        move_operation.apply_to(&mut input_stacks);
+
+        // Then
+        assert_eq!(expected_mutated_stacks, input_stacks);
     }
 }
