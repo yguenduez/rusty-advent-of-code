@@ -15,6 +15,18 @@ impl MoveOperation {
             stacks[self.to_stack_index].push(char_to_swap);
         }
     }
+
+    pub(crate) fn apply_to_in_order(&self, stacks: &mut Vec<Vec<char>>) {
+        let mut char_to_move: Vec<char> = {
+            (0..self.num_of_items)
+                .map(|_| stacks[self.from_stack_index].pop().unwrap())
+                .collect()
+        };
+        char_to_move.reverse();
+        char_to_move
+            .iter()
+            .for_each(|ch| stacks[self.to_stack_index].push(*ch))
+    }
 }
 
 pub(crate) struct MoveOperationFactory {
@@ -119,6 +131,25 @@ mod tests {
 
         // When
         move_operation.apply_to(&mut input_stacks);
+
+        // Then
+        assert_eq!(expected_mutated_stacks, input_stacks);
+    }
+
+    #[test]
+    fn applies_move_operation_in_order_correctly_to_stacks() {
+        // Given
+        let mut input_stacks: Vec<Vec<char>> = vec![vec!['Z', 'N'], vec!['M', 'C', 'D'], vec!['P']];
+        let expected_mutated_stacks: Vec<Vec<char>> =
+            vec![vec!['Z', 'N'], vec![], vec!['P', 'M', 'C', 'D']];
+        let move_operation = MoveOperation {
+            from_stack_index: 1,
+            to_stack_index: 2,
+            num_of_items: 3,
+        };
+
+        // When
+        move_operation.apply_to_in_order(&mut input_stacks);
 
         // Then
         assert_eq!(expected_mutated_stacks, input_stacks);
