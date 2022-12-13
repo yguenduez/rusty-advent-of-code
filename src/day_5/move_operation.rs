@@ -1,4 +1,5 @@
 use regex::{Match, Regex};
+use std::collections::VecDeque;
 use std::str::FromStr;
 
 #[derive(PartialEq, Debug)]
@@ -17,14 +18,14 @@ impl MoveOperation {
     }
 
     pub(crate) fn apply_to_in_order(&self, stacks: &mut Vec<Vec<char>>) {
-        let mut char_to_move: Vec<char> = {
+        let char_to_move: VecDeque<char> = {
             (0..self.num_of_items)
                 .map(|_| stacks[self.from_stack_index].pop().unwrap())
                 .collect()
         };
-        char_to_move.reverse();
         char_to_move
             .iter()
+            .rev()
             .for_each(|ch| stacks[self.to_stack_index].push(*ch))
     }
 }
