@@ -1,4 +1,5 @@
 use regex::{Match, Regex};
+use std::collections::VecDeque;
 use std::str::FromStr;
 
 #[derive(PartialEq, Debug)]
@@ -17,19 +18,19 @@ impl MoveOperation {
     }
 
     pub(crate) fn apply_to_in_order(&self, stacks: &mut Vec<Vec<char>>) {
-        let mut char_to_move: Vec<char> = {
+        let char_to_move: VecDeque<char> = {
             (0..self.num_of_items)
                 .map(|_| stacks[self.from_stack_index].pop().unwrap())
                 .collect()
         };
-        char_to_move.reverse();
         char_to_move
             .iter()
+            .rev()
             .for_each(|ch| stacks[self.to_stack_index].push(*ch))
     }
 }
 
-pub(crate) struct MoveOperationFactory {
+pub(crate) struct MoveOperationBuilder {
     move_operation: MoveOperation,
 }
 
@@ -43,7 +44,7 @@ impl FromStr for MoveOperation {
             return Err(());
         }
 
-        let move_operation = MoveOperationFactory::new()
+        let move_operation = MoveOperationBuilder::new()
             .from(matches[1].as_str().parse::<usize>().unwrap() - 1)
             .to(matches[2].as_str().parse::<usize>().unwrap() - 1)
             .num_of_items_to_move(matches[0].as_str().parse::<u64>().unwrap())
@@ -53,7 +54,7 @@ impl FromStr for MoveOperation {
     }
 }
 
-impl MoveOperationFactory {
+impl MoveOperationBuilder {
     fn new() -> Self {
         Self {
             move_operation: MoveOperation {
@@ -86,7 +87,7 @@ impl MoveOperationFactory {
 
 #[cfg(test)]
 mod tests {
-    use crate::day_5::move_operation::{MoveOperation, MoveOperationFactory};
+    use crate::day_5::move_operation::{MoveOperation, MoveOperationBuilder};
     use std::str::FromStr;
 
     #[test]
@@ -97,7 +98,7 @@ mod tests {
             num_of_items: 6,
         };
 
-        let result = MoveOperationFactory::new()
+        let result = MoveOperationBuilder::new()
             .from(3)
             .to(5)
             .num_of_items_to_move(6)
