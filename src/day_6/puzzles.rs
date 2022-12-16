@@ -6,12 +6,14 @@ struct Solution;
 impl Solution {
     fn solve_first_puzzle(input_file: &str) -> usize {
         let file_input_str = read_to_string(input_file).unwrap();
-        let marker_index = Signaler::find_marker(&file_input_str).unwrap();
-        marker_index
+        let signaler = Signaler::new(4);
+        signaler.find_marker(&file_input_str).unwrap()
     }
 
     fn solve_second_puzzle(input_file: &str) -> usize {
-        todo!()
+        let file_input_str = read_to_string(input_file).unwrap();
+        let signaler = Signaler::new(14);
+        signaler.find_marker(&file_input_str).unwrap()
     }
 }
 
@@ -28,6 +30,6 @@ mod tests {
     #[test]
     fn solution_for_second_puzzle() {
         let solution: usize = Solution::solve_second_puzzle("inputs/day_6/input.txt");
-        assert_eq!(0, solution);
+        assert_eq!(3513, solution);
     }
 }
