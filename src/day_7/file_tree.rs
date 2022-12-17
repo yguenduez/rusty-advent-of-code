@@ -73,10 +73,8 @@ impl TreeBuilder {
                         .iter()
                         .map(|dir| Directory {
                             name: dir.0.clone(),
-                            size: 0,
                             parent_dir: Some(current_dir.clone()),
-                            child_dirs: vec![],
-                            child_files: vec![],
+                            ..Default::default()
                         })
                         .for_each(|mut dir| {
                             current_dir
@@ -95,9 +93,9 @@ impl TreeBuilder {
 mod tests {
     use crate::day_7::command_parser::{Commands, DirName, FileName, FileWithSize, LsFinds};
     use crate::day_7::file_tree::{Directory, File, TreeBuilder};
+    use crate::day_7::test_utils::create_test_tree;
     use std::cell::{Ref, RefCell};
     use std::rc::Rc;
-    use crate::day_7::test_utils::create_test_tree;
 
     #[test]
     fn build_tree_from_commands() {
