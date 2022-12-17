@@ -21,7 +21,7 @@ struct TreeBuilder;
 
 impl TreeBuilder {
     fn from(commands: &[Commands]) -> Rc<RefCell<Directory>> {
-        if commands.len() < 1 {
+        if commands.is_empty() {
             panic!("No commands given!");
         };
         let Commands::CdDown(dir_name) = &commands[0] else {
@@ -96,7 +96,6 @@ mod tests {
     use crate::day_7::command_parser::{Commands, DirName, FileName, FileWithSize, LsFinds};
     use crate::day_7::file_tree::{Directory, File, TreeBuilder};
     use std::cell::{Ref, RefCell};
-    use std::default;
     use std::rc::Rc;
 
     #[test]
@@ -127,32 +126,32 @@ mod tests {
             size: 123,
         };
 
-        let mut rootDir = Rc::new(RefCell::new(Directory {
+        let expected_root_node = Rc::new(RefCell::new(Directory {
             parent_dir: None,
             name: "/".to_string(),
             size: 0,
             child_dirs: vec![Rc::new(RefCell::new(dir_x)), Rc::new(RefCell::new(dir_y))],
             child_files: vec![Rc::new(RefCell::new(file))],
         }));
-        rootDir
+        expected_root_node
             .borrow_mut()
             .child_dirs
             .iter_mut()
-            .for_each(|child| child.borrow_mut().parent_dir = Some(rootDir.clone()));
+            .for_each(|child| child.borrow_mut().parent_dir = Some(expected_root_node.clone()));
 
-        let root_node = TreeBuilder::from(&commands);
+        let result_root_node = TreeBuilder::from(&commands);
 
         assert_eq!(
-            rootDir.borrow().child_dirs.len(),
-            root_node.borrow().child_dirs.len()
+            expected_root_node.borrow().child_dirs.len(),
+            result_root_node.borrow().child_dirs.len()
         );
 
         for i in 0usize..1usize {
-            let expected_dir = rootDir.borrow().child_dirs[i].clone();
-            let result_dir = root_node.borrow().child_dirs[i].clone();
+            let expected_dir = expected_root_node.borrow().child_dirs[i].clone();
+            let result_dir = result_root_node.borrow().child_dirs[i].clone();
             assert_eq!(expected_dir.borrow().name, result_dir.borrow().name);
 
-            let expected_root_node = rootDir.clone();
+            let expected_root_node = expected_root_node.clone();
             let result_root_node = result_dir.borrow().parent_dir.clone().unwrap();
 
             assert_eq!(
@@ -161,8 +160,8 @@ mod tests {
             );
         }
 
-        let expected_file = rootDir.borrow().child_files[0].clone();
-        let result_file = root_node.borrow().child_files[0].clone();
+        let expected_file = expected_root_node.borrow().child_files[0].clone();
+        let result_file = result_root_node.borrow().child_files[0].clone();
         assert_eq!(expected_file.borrow().name, result_file.borrow().name);
     }
 }
