@@ -1,23 +1,23 @@
 #[derive(Debug, PartialEq)]
-struct FileWithSize {
-    name: FileName,
-    size: usize,
+pub struct FileWithSize {
+    pub name: FileName,
+    pub size: usize,
 }
 
 #[derive(Default, Debug, PartialEq)]
-struct LsFinds {
-    files: Vec<FileWithSize>,
-    dirs: Vec<DirName>,
+pub struct LsFinds {
+    pub files: Vec<FileWithSize>,
+    pub dirs: Vec<DirName>,
 }
 
 #[derive(Debug, PartialEq)]
-struct DirName(String);
+pub struct DirName(pub String);
 
 #[derive(Debug, PartialEq)]
-struct FileName(String);
+pub struct FileName(pub String);
 
 #[derive(Debug, PartialEq)]
-enum Commands {
+pub enum Commands {
     CdUp,
     CdDown(DirName),
     Ls(LsFinds),
