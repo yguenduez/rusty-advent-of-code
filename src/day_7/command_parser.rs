@@ -106,7 +106,7 @@ mod tests {
                 Commands::CdDown(DirName('/'.to_string())),
                 Commands::Ls(LsFinds {
                     files: vec![FileWithSize {
-                        name: FileName("hallo".to_string()),
+                        name: FileName("hello".to_string()),
                         size: 123
                     }],
                     dirs: vec![DirName('x'.to_string()), DirName('y'.to_string())]
