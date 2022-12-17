@@ -3,18 +3,18 @@ use std::cell::RefCell;
 use std::rc::Rc;
 
 #[derive(PartialEq, Debug, Default)]
-struct Directory {
-    name: String,
-    size: usize,
-    parent_dir: Option<Rc<RefCell<Directory>>>,
-    child_dirs: Vec<Rc<RefCell<Directory>>>,
-    child_files: Vec<Rc<RefCell<File>>>,
+pub struct Directory {
+    pub name: String,
+    pub size: usize,
+    pub parent_dir: Option<Rc<RefCell<Directory>>>,
+    pub child_dirs: Vec<Rc<RefCell<Directory>>>,
+    pub child_files: Vec<Rc<RefCell<File>>>,
 }
 
 #[derive(PartialEq, Debug)]
-struct File {
-    name: String,
-    size: usize,
+pub struct File {
+    pub name: String,
+    pub size: usize,
 }
 
 struct TreeBuilder;
@@ -97,6 +97,7 @@ mod tests {
     use crate::day_7::file_tree::{Directory, File, TreeBuilder};
     use std::cell::{Ref, RefCell};
     use std::rc::Rc;
+    use crate::day_7::test_utils::create_test_tree;
 
     #[test]
     fn build_tree_from_commands() {
@@ -111,34 +112,7 @@ mod tests {
             }),
         ];
 
-        let dir_x = Directory {
-            name: "x".to_string(),
-            ..Default::default()
-        };
-
-        let dir_y = Directory {
-            name: "y".to_string(),
-            ..Default::default()
-        };
-
-        let file = File {
-            name: "hallo".to_string(),
-            size: 123,
-        };
-
-        let expected_root_node = Rc::new(RefCell::new(Directory {
-            parent_dir: None,
-            name: "/".to_string(),
-            size: 0,
-            child_dirs: vec![Rc::new(RefCell::new(dir_x)), Rc::new(RefCell::new(dir_y))],
-            child_files: vec![Rc::new(RefCell::new(file))],
-        }));
-        expected_root_node
-            .borrow_mut()
-            .child_dirs
-            .iter_mut()
-            .for_each(|child| child.borrow_mut().parent_dir = Some(expected_root_node.clone()));
-
+        let expected_root_node = create_test_tree();
         let result_root_node = TreeBuilder::from(&commands);
 
         assert_eq!(
