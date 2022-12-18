@@ -22,6 +22,24 @@ impl DirFinder {
 
         out
     }
+
+    pub fn find_dirs_with_min_size_of(
+        min_dir_size: usize,
+        node: Rc<RefCell<Directory>>,
+    ) -> Vec<Rc<RefCell<Directory>>> {
+        let mut out = Vec::new();
+        if node.borrow().size >= min_dir_size {
+            out.push(node.clone());
+        }
+        for child_dir in &node.borrow().child_dirs {
+            out.append(&mut DirFinder::find_dirs_with_min_size_of(
+                min_dir_size,
+                child_dir.clone(),
+            ));
+        }
+
+        out
+    }
 }
 
 pub fn sum_up_size(dirs: &[Rc<RefCell<Directory>>]) -> usize {
@@ -51,6 +69,21 @@ mod test {
         assert_eq!(2, dirs.len());
         assert!(dirs.iter().any(|node| node.borrow().name == "x"));
         assert!(dirs.iter().any(|node| node.borrow().name == "y"));
+    }
+
+    #[test]
+    fn finds_all_folders_with_min_size_of_50() {
+        // Given
+        let input_tree = create_test_tree();
+        DirSizeCalculator::calculate_dir_sizes(input_tree.clone());
+        let expected_max_size: usize = 50;
+
+        // When
+        let dirs = DirFinder::find_dirs_with_min_size_of(expected_max_size, input_tree);
+
+        // Then
+        assert_eq!(1, dirs.len());
+        assert!(dirs.iter().any(|node| node.borrow().name == "/"));
     }
 
     #[test]
