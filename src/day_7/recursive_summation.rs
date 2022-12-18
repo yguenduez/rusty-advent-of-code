@@ -2,10 +2,10 @@ use crate::day_7::file_tree::Directory;
 use std::cell::RefCell;
 use std::rc::Rc;
 
-struct RecurseSummation;
+pub(crate) struct RecurseSummation;
 
 impl RecurseSummation {
-    fn sum_up_dir_sizes(curr_node: Rc<RefCell<Directory>>) {
+    pub(crate) fn sum_up_dir_sizes(curr_node: Rc<RefCell<Directory>>) {
         let mut sum = curr_node
             .borrow()
             .child_files
