@@ -2,10 +2,10 @@ use crate::day_7::file_tree::Directory;
 use std::cell::RefCell;
 use std::rc::Rc;
 
-struct DirFinder;
+pub struct DirFinder;
 
 impl DirFinder {
-    fn find_dirs_with_max_size_of(
+    pub fn find_dirs_with_max_size_of(
         max_dir_size: usize,
         node: Rc<RefCell<Directory>>,
     ) -> Vec<Rc<RefCell<Directory>>> {
@@ -31,8 +31,8 @@ pub fn sum_up_size(dirs: &[Rc<RefCell<Directory>>]) -> usize {
 #[cfg(test)]
 mod test {
     use crate::day_7::dir_finder::{sum_up_size, DirFinder};
+    use crate::day_7::dir_size_calc::DirSizeCalculator;
     use crate::day_7::file_tree::Directory;
-    use crate::day_7::recursive_summation::RecurseSummation;
     use crate::day_7::test_utils::create_test_tree;
     use std::cell::RefCell;
     use std::rc::Rc;
@@ -41,7 +41,7 @@ mod test {
     fn finds_all_folders_with_max_size_of_50() {
         // Given
         let input_tree = create_test_tree();
-        RecurseSummation::sum_up_dir_sizes(input_tree.clone());
+        DirSizeCalculator::calculate_dir_sizes(input_tree.clone());
         let expected_max_size: usize = 50;
 
         // When

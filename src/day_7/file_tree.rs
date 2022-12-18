@@ -11,16 +11,16 @@ pub struct Directory {
     pub child_files: Vec<Rc<RefCell<File>>>,
 }
 
-#[derive(PartialEq, Debug)]
+#[derive(PartialEq, Debug, Default)]
 pub struct File {
     pub name: String,
     pub size: usize,
 }
 
-struct TreeBuilder;
+pub struct TreeBuilder;
 
 impl TreeBuilder {
-    fn from(commands: &[Commands]) -> Rc<RefCell<Directory>> {
+    pub fn from(commands: &[Commands]) -> Rc<RefCell<Directory>> {
         if commands.is_empty() {
             panic!("No commands given!");
         };
@@ -45,13 +45,13 @@ impl TreeBuilder {
                     }
                 }
                 Commands::CdDown(dir_name) => {
-                    let dir = Directory {
-                        name: String::to_string(&dir_name.0),
-                        ..Default::default()
-                    };
-                    let dir_node = Rc::new(RefCell::new(dir));
-                    current_dir.borrow_mut().child_dirs.push(dir_node.clone());
-                    current_dir = dir_node;
+                    let dir_to_cd_into = current_dir
+                        .borrow_mut()
+                        .child_dirs
+                        .iter()
+                        .find(|dir| dir.borrow().name == dir_name.0).cloned()
+                        .expect("There is no such dir!");
+                    current_dir = dir_to_cd_into;
                 }
                 Commands::Ls(found_items) => {
                     found_items

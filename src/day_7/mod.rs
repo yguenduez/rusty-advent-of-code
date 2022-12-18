@@ -1,6 +1,6 @@
 mod command_parser;
+mod dir_finder;
+mod dir_size_calc;
 mod file_tree;
 mod puzzles;
-mod recursive_summation;
 mod test_utils;
-mod dir_finder;

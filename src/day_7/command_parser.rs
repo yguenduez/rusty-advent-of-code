@@ -46,10 +46,10 @@ impl AddDir for Commands {
     }
 }
 
-struct CommandParser;
+pub(crate) struct CommandParser;
 
 impl CommandParser {
-    fn parse_str(input: &str) -> Vec<Commands> {
+    pub(crate) fn parse_str(input: &str) -> Vec<Commands> {
         let mut commands = Vec::new();
         let mut lines = input.lines();
         for line in lines {
